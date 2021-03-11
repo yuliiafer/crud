@@ -23,6 +23,7 @@ const Products = () => {
       }
     };
     getProducts();
+    // eslint-disable-next-line
   }, []);
   if (!auth) {
     history.push("/login");

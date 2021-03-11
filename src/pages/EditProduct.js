@@ -5,7 +5,8 @@ import Item from "../components/Item";
 import { PRODUCTS_PATH } from "../utils/constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { productSchema } from "../utils/schema";
+import DeleteProduct from "../components/DeleteProduct";
 
 const EditProduct = () => {
   const [product, setProduct] = useState(null);
@@ -15,13 +16,6 @@ const EditProduct = () => {
   const [updateError, setUpdateError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const productSchema = yup.object().shape({
-    title: yup.string().required("Please provide a title"),
-    price: yup.number().required("Please provide a price"),
-    description: yup.string().required("Please provide a description"),
-    image_url: yup.string().required("Please provide an image url"),
-  });
-
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(productSchema),
   });
@@ -29,7 +23,6 @@ const EditProduct = () => {
   const onSubmit = async (data) => {
     setSubmitting(true);
     setUpdateError(null);
-
     console.log(data);
 
     try {
@@ -56,7 +49,8 @@ const EditProduct = () => {
       }
     };
     getProduct();
-  }, []);
+    // eslint-disable-next-line
+  }, [id]);
 
   if (!product) {
     return <p>loading product</p>;
@@ -64,11 +58,17 @@ const EditProduct = () => {
 
   return (
     <>
-      <h1>Edit Product</h1>
-      <Item {...product} />
+      <h1>Edit Product: "{product.title}"</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {updateError && <p>{updateError}</p>}
         <fieldset disabled={submitting}>
+          {updateError && <p className="error">Something was wrong...</p>}
+          <div>
+            {success ? (
+              <p className="success">
+                Listing of "{product.title}" was updated
+              </p>
+            ) : null}
+          </div>
           <div>
             <input
               name="title"
@@ -76,7 +76,7 @@ const EditProduct = () => {
               ref={register}
               defaultValue={product.title}
             />
-            {errors.title && <p>{errors.identifier.message}</p>}
+            {errors.title && <p>{errors.title.message}</p>}
           </div>
 
           <div>
@@ -113,12 +113,13 @@ const EditProduct = () => {
           <button type="submit">
             {submitting ? "Updating ..." : "Update"}
           </button>
-          <div>
-            {success ? <p>Listing of {product.title} was updated</p> : null}
-          </div>
+          <button type="button" onClick>Delete</button>
+          <hr />
+          
         </fieldset>
       </form>
-      ;
+
+      <Item {...product} />
     </>
   );
 };
