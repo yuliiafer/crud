@@ -6,7 +6,7 @@ import { PRODUCTS_PATH } from "../utils/constants";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productSchema } from "../utils/schema";
-import DeleteProduct from "../components/DeleteProduct";
+import DeleteProduct from "../components/Delete";
 
 const EditProduct = () => {
   const [product, setProduct] = useState(null);
@@ -113,9 +113,8 @@ const EditProduct = () => {
           <button type="submit">
             {submitting ? "Updating ..." : "Update"}
           </button>
-          <button type="button" onClick>Delete</button>
           <hr />
-          
+          <DeleteProduct id={id}/>
         </fieldset>
       </form>
 

@@ -1,53 +1,31 @@
 import { useState } from "react";
 import useAxios from "../utils/useAxios";
 import { PRODUCTS_PATH } from "../utils/constants";
-import Item from './Item';
-import { useParams } from "react-router-dom";
+import Item from "./Item";
 
-const DeleteProduct = () => {
+export default function DeleteProduct({ id }) {
   const [error, setError] = useState(null);
-  const [render, setRender] = useState([]);
   const http = useAxios();
-  const { id } = useParams();
+  const url = `${PRODUCTS_PATH}/${id}`;
   const handleDelete = async () => {
-    
     const confirmDelete = window.confirm(`Delete this post ${Item.title}?`);
     if (confirmDelete) {
       try {
-        const response = await http.delete(`${PRODUCTS_PATH}/${id}`);
-        console.log(response);
-        alert(`${Item.title} has been deleted.`);
-        
+        await http.delete(url);
+        alert(`Product #${id} has been deleted.`);
       } catch (error) {
         setError(error);
-      } finally {
-        setRender(render + 1);
       }
     }
-    Item();
   };
-  handleDelete();
-
 
   return (
-    <>
-     {id.map((item) => {
-         
-         return (<><p>{item.title}</p>
-                         <button type="button" onClick={() => handleDelete(item.id)}>
-              {error ? "Error" : "Delete"}
-            </button>
-            </>
-         );
-         
-
-     })}
-        
-
-       
-      
-    </>
+    <button
+      type="button"
+      classname="delete"
+      onClick={() => handleDelete({ id })}
+    >
+      {error ? "Error" : "Delete"}
+    </button>
   );
-};
-
-export default DeleteProduct;
+}
