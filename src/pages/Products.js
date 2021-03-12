@@ -5,6 +5,7 @@ import useAxios from "../utils/useAxios";
 import { useEffect, useState } from "react";
 import Item from "../components/Item";
 import { PRODUCTS_PATH } from "../utils/constants";
+import Loading from "../components/Loading";
 
 const Products = () => {
   const [auth] = useContext(AuthContext);
@@ -29,7 +30,7 @@ const Products = () => {
     history.push("/login");
   }
   if (!products) {
-    return <p>loading</p>;
+    return <Loading />;
   }
   return (
     <>

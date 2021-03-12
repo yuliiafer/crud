@@ -22,7 +22,7 @@ export default function DeleteProduct({ id }) {
   return (
     <button
       type="button"
-      classname="delete"
+      className="delete"
       onClick={() => handleDelete({ id })}
     >
       {error ? "Error" : "Delete"}

@@ -1,14 +1,6 @@
 const Item = (props) => {
   const { title, description, image_url, price } = props;
   return (
-    /*
-      <div className="product-container" style={{ width: '100%', maxWidth: '700px', margin: ' 0 auto', paddingBottom: '1rem'}}>
-        <h2>{title}</h2>
-        <img src={image_url} alt={title} style={{ width: '100%' }} />
-        <h3>{price},-</h3>
-        <p>Description: {description}</p>
-      </div>*/
-
     <>
       <div className="cards">
         <div className="cards__container">

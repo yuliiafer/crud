@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productSchema } from "../utils/schema";
 import DeleteProduct from "../components/Delete";
+import Loading from "../components/Loading";
 
 const EditProduct = () => {
   const [product, setProduct] = useState(null);
@@ -53,7 +54,7 @@ const EditProduct = () => {
   }, [id]);
 
   if (!product) {
-    return <p>loading product</p>;
+    return <Loading />;
   }
 
   return (
