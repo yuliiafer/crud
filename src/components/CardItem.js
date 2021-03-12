@@ -6,7 +6,7 @@ function CardItem(props) {
     <div className='cards'>
       <div className='cards__container flex-container'>
       <div className='cards__wrapper'>
-        <ul className='cards__items'>
+        <ul>
         <li className='cards__item'>
           <Link className='cards__item__link' to={props.path}>
             <figure className='cards__item__pic-wrap' data-category={props.price}>

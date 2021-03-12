@@ -114,7 +114,6 @@ const EditProduct = () => {
           <button type="submit">
             {submitting ? "Updating ..." : "Update"}
           </button>
-          <hr />
           <DeleteProduct id={id}/>
         </fieldset>
       </form>
